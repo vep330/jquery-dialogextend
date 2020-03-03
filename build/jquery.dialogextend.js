@@ -85,7 +85,6 @@
         style = '';
         style += '<style class="dialog-extend-css" type="text/css">';
         style += '.ui-dialog .ui-dialog-titlebar-restore { width: 19px; margin: 1px; display:inline-block; }';
-        style += '.ui-dialog .ui-dialog-titlebar ::selection { background-color: transparent; }';
         style += '</style>';
         $(style).appendTo("body");
       }
