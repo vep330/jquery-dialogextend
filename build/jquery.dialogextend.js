@@ -134,6 +134,7 @@
         _this = this;
 
       titlebar = $(this.element[0]).dialog("widget").find(".ui-dialog-titlebar");
+      var $closeButton = titlebar.find('.ui-dialog-titlebar-close');
       buttonPane = $('<div class="ui-dialog-titlebar-buttonpane"></div>').appendTo(titlebar);
       buttonPane.css({
         "position": "absolute",
@@ -142,13 +143,15 @@
         "margin-top": "-10px",
         "height": "18px"
       });
-      titlebar.find(".ui-dialog-titlebar-close").css({
+      $closeButton.css({
         "position": "relative",
         "float": "right",
         "top": "auto",
         "right": "auto",
         "margin": 0
-      }).find(".ui-icon").removeClass("ui-icon-closethick").addClass(this.options.icons.close).end().appendTo(buttonPane).end();
+      });
+      $closeButton.find(".ui-icon").removeClass("ui-icon-closethick").addClass(this.options.icons.close);
+      $closeButton.appendTo(buttonPane);
       buttonPane.append('<a class="ui-dialog-titlebar-restore ui-corner-all ui-state-default" href="#"><span class="ui-icon ' + this.options.icons.restore + '" title="restore">restore</span></a>').find('.ui-dialog-titlebar-restore').attr("role", "button").mouseover(function() {
         return $(this).addClass("ui-state-hover");
       }).mouseout(function() {
