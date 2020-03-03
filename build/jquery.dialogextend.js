@@ -89,7 +89,7 @@
       if (!$(".dialog-extend-css").length) {
         style = '';
         style += '<style class="dialog-extend-css" type="text/css">';
-        style += '.ui-dialog .ui-dialog-titlebar-buttonpane>a { float: right; }';
+        style += '.ui-dialog .ui-dialog-titlebar-buttonpane>a { float: left; }';
         style += '.ui-dialog .ui-dialog-titlebar-restore { width: 19px; height: 18px; }';
         style += '.ui-dialog .ui-dialog-titlebar-restore span { display: block; margin: 1px; }';
         style += '.ui-dialog .ui-dialog-titlebar-restore:hover,';
@@ -130,7 +130,7 @@
       }
     },
     _initButtons: function() {
-      var buttonPane, mode, name, titlebar, _ref,
+      var buttonPane, titlebar,
         _this = this;
 
       titlebar = $(this.element[0]).dialog("widget").find(".ui-dialog-titlebar");
@@ -153,41 +153,45 @@
       $closeButton.find(".ui-icon").removeClass("ui-icon-closethick").addClass(this.options.icons.close);
       $closeButton.appendTo(buttonPane);
 
-      buttonPane.append('<a class="ui-dialog-titlebar-restore ui-corner-all ui-state-default" href="#"><span class="ui-icon ' + this.options.icons.restore + '" title="restore">restore</span></a>').find('.ui-dialog-titlebar-restore').attr("role", "button").mouseover(function() {
-        return $(this).addClass("ui-state-hover");
-      }).mouseout(function() {
-        return $(this).removeClass("ui-state-hover");
-      }).focus(function() {
-        return $(this).addClass("ui-state-focus");
-      }).blur(function() {
-        return $(this).removeClass("ui-state-focus");
-      }).end().find(".ui-dialog-titlebar-close").toggle(this.options.closable).end().find(".ui-dialog-titlebar-restore").hide().click(function(e) {
+      var $customButtons = [];
+      var $restoreButton = $('<a class="ui-dialog-titlebar-restore ui-corner-all ui-state-default" href="#"><span class="ui-icon ' + this.options.icons.restore + '" title="restore">restore</span></a>');
+      $restoreButton.hide().click(function(e) {
         e.preventDefault();
         return _this.restore();
       }).end();
-      _ref = this.modes;
-      for (name in _ref) {
-        mode = _ref[name];
-        this._initModuleButton(name, mode);
+      if (this.options.minimizeLocation === 'left') {
+        $customButtons.push(this._initModuleButton('minimize', this.modes['minimize']));
+        $customButtons.push(this._initModuleButton('maximize', this.modes['maximize']));
+      } else {
+        $customButtons.push(this._initModuleButton('maximize', this.modes['maximize']));
+        $customButtons.push(this._initModuleButton('minimize', this.modes['minimize']));
       }
+      $customButtons.push(this._initModuleButton('collapse', this.modes['collapse']));
+      $customButtons.push($restoreButton);
+      for (var i = 0; i < $customButtons.length; ++i) {
+        var $b = $customButtons[i];
+        $b.attr("role", "button").mouseover(function() {
+          return $(this).addClass("ui-state-hover");
+        }).mouseout(function() {
+          return $(this).removeClass("ui-state-hover");
+        }).focus(function() {
+          return $(this).addClass("ui-state-focus");
+        }).blur(function() {
+          return $(this).removeClass("ui-state-focus");
+        });
+        buttonPane.append($b);
+      }
+      $closeButton.toggle(this.options.closable);
     },
     _initModuleButton: function(name, mode) {
-      var buttonPane,
-        _this = this;
+      var _this = this;
 
-      buttonPane = $(this.element[0]).dialog("widget").find('.ui-dialog-titlebar-buttonpane');
-      return buttonPane.append('<a class="ui-dialog-titlebar-' + name + ' ui-corner-all ui-state-default" href="#" title="' + name + '"><span class="ui-icon ' + this.options.icons[name] + '">' + name + '</span></a>').find(".ui-dialog-titlebar-" + name).attr("role", "button").mouseover(function() {
-        return $(this).addClass("ui-state-hover");
-      }).mouseout(function() {
-        return $(this).removeClass("ui-state-hover");
-      }).focus(function() {
-        return $(this).addClass("ui-state-focus");
-      }).blur(function() {
-        return $(this).removeClass("ui-state-focus");
-      }).end().find(".ui-dialog-titlebar-" + name).toggle(this.options[mode.option]).click(function(e) {
+      var $button = $('<a class="ui-dialog-titlebar-' + name + ' ui-corner-all ui-state-default" href="#" title="' + name + '"><span class="ui-icon ' + this.options.icons[name] + '">' + name + '</span></a>');
+      $button.toggle(this.options[mode.option]).click(function(e) {
         e.preventDefault();
         return _this[name]();
-      }).end();
+      });
+      return $button;
     },
     _initTitleBar: function() {
       var handle;
