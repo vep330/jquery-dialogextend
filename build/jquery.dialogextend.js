@@ -57,8 +57,42 @@
       this._toggleButtons();
       this._initTitleBar();
       this._setState("normal");
-      this._on("load", function(e) {
-        return console.log("test", e);
+
+      this.element.on('popupdialogopen', function(e) {
+        var $dialog =  $(this).closest('.ui-dialog');
+        var $buttonPane = $('.ui-dialog-titlebar-buttonpane', $dialog);
+        if ($buttonPane.length && ($buttonPane.css('float') !== 'none' || $buttonPane.css('position') !== 'absolute')) {
+          // Add rules mostly equivalent to original (base theme) declaration for .ui-dialog-titlebar-close
+          // see https://github.com/jquery/jquery-ui/blob/master/themes/base/dialog.css#L30
+          $buttonPane.css({
+            position: 'absolute',
+            right: '.3em',
+            top: '50%',
+            'margin-top' : '-10px',
+            'margin-bottom': '0',
+            'margin-left': '0',
+            'margin-right': '0',
+            padding: '1px',
+            // counter legacy Mapbender CSS rules
+            float: 'none'
+          });
+        }
+        var $closeButton = $('.ui-dialog-titlebar-close', $dialog);
+        if ($closeButton.length && $closeButton.hasClass('ui-button-icon-only') && !(($closeButton.css('text-indent') || "").match(/^-999/))) {
+          // No original jqueryui css loaded, lo-fi hide contained text
+          // NOTE: unlike the original jqueryui method, this preserves glyph-based icon contents in child nodes
+          var cbChildren = $closeButton.get(0).childNodes;
+          if (cbChildren && cbChildren.length === 3 && cbChildren[2].nodeType === 3) {
+            cbChildren[2].textContent = '';
+          }
+        }
+        if ($closeButton.css('margin-top') === '-2px') {
+          // SOMEONE (...vis-ui...) punched a bootstrap .close on the close button; undo the collateral rules
+          $closeButton.css({
+            'margin': '1px',
+            float: 'none'
+          });
+        }
       });
       return this._trigger("load");
     },
@@ -114,19 +148,8 @@
       var buttonPane, titlebar;
 
       titlebar = $(this.element[0]).dialog("widget").find(".ui-dialog-titlebar");
-      var $closeButton = titlebar.find('.ui-dialog-titlebar-close');
+      var $closeButton = titlebar.find('button.ui-dialog-titlebar-close');
       buttonPane = $('<div class="ui-dialog-titlebar-buttonpane"></div>').appendTo(titlebar);
-      buttonPane.css({
-        "position": "absolute",
-        "top": "50%",
-        "right": "0.3em",
-        "margin-top": "-10px",
-        "height": "18px"
-      });
-      $closeButton.css({
-        position: 'relative',
-        margin: '1px'
-      });
       $closeButton.find(".ui-icon").removeClass("ui-icon-closethick").addClass(this.options.icons.close);
 
       var customButtonNames = [];
@@ -172,7 +195,6 @@
     },
     _initTitleBar: function() {
       var _this = this;
-
       $('.ui-dialog-titlebar', this.element).dblclick(function(evt) {
         if (_this.options.dblclick) {
           if (_this._state !== "normal") {
