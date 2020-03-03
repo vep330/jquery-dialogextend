@@ -69,7 +69,7 @@
       return this._state = state;
     },
     _verifyOptions: function() {
-      var name, _ref, _results;
+      var _ref;
 
       if (this.options.dblclick && !(this.options.dblclick in this.modes)) {
         $.error("jQuery.dialogExtend Error : Invalid <dblclick> value '" + this.options.dblclick + "'");
@@ -79,18 +79,14 @@
         $.error("jQuery.dialogExtend Error : Invalid <titlebar> value '" + this.options.titlebar + "'");
         this.options.titlebar = false;
       }
-      _results = [];
-      for (name in this.modes) {
-        if (this["_verifyOptions_" + name]) {
-          _results.push(this["_verifyOptions_" + name]());
-        } else {
-          _results.push(void 0);
-        }
+      if (!this.options.minimizeLocation || ((_ref = this.options.minimizeLocation) !== 'left' && _ref !== 'right')) {
+        $.error("jQuery.dialogExtend Error : Invalid <minimizeLocation> value '" + this.options.minimizeLocation + "'");
+        this.options.minimizeLocation = "left";
       }
-      return _results;
+      return [];
     },
     _initStyles: function() {
-      var name, style, _results;
+      var style;
 
       if (!$(".dialog-extend-css").length) {
         style = '';
@@ -104,11 +100,36 @@
         style += '</style>';
         $(style).appendTo("body");
       }
-      _results = [];
-      for (name in this.modes) {
-        _results.push(this["_initStyles_" + name]());
+      if (!$(".dialog-extend-collapse-css").length) {
+        style = '';
+        style += '<style class="dialog-extend-collapse-css" type="text/css">';
+        style += '.ui-dialog .ui-dialog-titlebar-collapse { width: 19px; height: 18px; }';
+        style += '.ui-dialog .ui-dialog-titlebar-collapse span { display: block; margin: 1px; }';
+        style += '.ui-dialog .ui-dialog-titlebar-collapse:hover,';
+        style += '.ui-dialog .ui-dialog-titlebar-collapse:focus { padding: 0; }';
+        style += '</style>';
+        $(style).appendTo("body");
       }
-      return _results;
+      if (!$(".dialog-extend-maximize-css").length) {
+        style = '';
+        style += '<style class="dialog-extend-maximize-css" type="text/css">';
+        style += '.ui-dialog .ui-dialog-titlebar-maximize { width: 19px; height: 18px; }';
+        style += '.ui-dialog .ui-dialog-titlebar-maximize span { display: block; margin: 1px; }';
+        style += '.ui-dialog .ui-dialog-titlebar-maximize:hover,';
+        style += '.ui-dialog .ui-dialog-titlebar-maximize:focus { padding: 0; }';
+        style += '</style>';
+        $(style).appendTo("body");
+      }
+      if (!$(".dialog-extend-minimize-css").length) {
+        style = '';
+        style += '<style class="dialog-extend-minimize-css" type="text/css">';
+        style += '.ui-dialog .ui-dialog-titlebar-minimize { width: 19px; height: 18px; }';
+        style += '.ui-dialog .ui-dialog-titlebar-minimize span { display: block; margin: 1px; }';
+        style += '.ui-dialog .ui-dialog-titlebar-minimize:hover,';
+        style += '.ui-dialog .ui-dialog-titlebar-minimize:focus { padding: 0; }';
+        style += '</style>';
+        $(style).appendTo("body");
+      }
     },
     _initButtons: function() {
       var buttonPane, mode, name, titlebar, _ref,
@@ -311,20 +332,6 @@
         "maxHeight": original.size.maxHeight
       }).off('dialogclose', this._collapse_restore);
     },
-    _initStyles_collapse: function() {
-      var style;
-
-      if (!$(".dialog-extend-collapse-css").length) {
-        style = '';
-        style += '<style class="dialog-extend-collapse-css" type="text/css">';
-        style += '.ui-dialog .ui-dialog-titlebar-collapse { width: 19px; height: 18px; }';
-        style += '.ui-dialog .ui-dialog-titlebar-collapse span { display: block; margin: 1px; }';
-        style += '.ui-dialog .ui-dialog-titlebar-collapse:hover,';
-        style += '.ui-dialog .ui-dialog-titlebar-collapse:focus { padding: 0; }';
-        style += '</style>';
-        return $(style).appendTo("body");
-      }
-    },
     _collapse_restore: function() {
       return $(this).dialogExtend("restore");
     },
@@ -376,20 +383,6 @@
         return $(this.element[0]).dialog("widget").draggable("option", "handle", $(this.element[0]).dialog("widget").find(".ui-dialog-draggable-handle").length ? $(this.element[0]).dialog("widget").find(".ui-dialog-draggable-handle") : ".ui-dialog-titlebar").find(".ui-dialog-draggable-handle").css("cursor", "move");
       }
     },
-    _initStyles_maximize: function() {
-      var style;
-
-      if (!$(".dialog-extend-maximize-css").length) {
-        style = '';
-        style += '<style class="dialog-extend-maximize-css" type="text/css">';
-        style += '.ui-dialog .ui-dialog-titlebar-maximize { width: 19px; height: 18px; }';
-        style += '.ui-dialog .ui-dialog-titlebar-maximize span { display: block; margin: 1px; }';
-        style += '.ui-dialog .ui-dialog-titlebar-maximize:hover,';
-        style += '.ui-dialog .ui-dialog-titlebar-maximize:focus { padding: 0; }';
-        style += '</style>';
-        return $(style).appendTo("body");
-      }
-    },
     minimize: function() {
       var dialogcontrols, fixedContainer, newWidth;
 
@@ -436,28 +429,6 @@
       $(this.element[0]).off('dialogbeforeclose', this._minimize_restoreOnClose);
       $(this.element[0]).data("dialog-extend-minimize-controls").remove();
       return $(this.element[0]).removeData("dialog-extend-minimize-controls");
-    },
-    _initStyles_minimize: function() {
-      var style;
-
-      if (!$(".dialog-extend-minimize-css").length) {
-        style = '';
-        style += '<style class="dialog-extend-minimize-css" type="text/css">';
-        style += '.ui-dialog .ui-dialog-titlebar-minimize { width: 19px; height: 18px; }';
-        style += '.ui-dialog .ui-dialog-titlebar-minimize span { display: block; margin: 1px; }';
-        style += '.ui-dialog .ui-dialog-titlebar-minimize:hover,';
-        style += '.ui-dialog .ui-dialog-titlebar-minimize:focus { padding: 0; }';
-        style += '</style>';
-        return $(style).appendTo("body");
-      }
-    },
-    _verifyOptions_minimize: function() {
-      var _ref;
-
-      if (!this.options.minimizeLocation || ((_ref = this.options.minimizeLocation) !== 'left' && _ref !== 'right')) {
-        $.error("jQuery.dialogExtend Error : Invalid <minimizeLocation> value '" + this.options.minimizeLocation + "'");
-        return this.options.minimizeLocation = "left";
-      }
     },
     _minimize_restoreOnClose: function() {
       return $(this).dialogExtend("restore");
