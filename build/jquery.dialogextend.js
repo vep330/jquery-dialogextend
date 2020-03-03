@@ -30,9 +30,7 @@
       "titlebar": false,
       "icons": {
         "close": "ui-icon-closethick",
-        "restore": "ui-icon-newwin"
-      },
-      "icons": {
+        "restore": "ui-icon-newwin",
         "maximize": "ui-icon-extlink",
         "minimize": "ui-icon-minus",
         "collapse": "ui-icon-triangle-1-s"
