@@ -90,9 +90,7 @@
       if (!$(".dialog-extend-css").length) {
         style = '';
         style += '<style class="dialog-extend-css" type="text/css">';
-        style += '.ui-dialog .ui-dialog-titlebar-buttonpane>a { float: left; }';
-        style += '.ui-dialog .ui-dialog-titlebar-restore { width: 19px; height: 18px; }';
-        style += '.ui-dialog .ui-dialog-titlebar-restore span { display: block; margin: 1px; }';
+        style += '.ui-dialog .ui-dialog-titlebar-restore { width: 19px; margin: 1px; display:inline-block; }';
         style += '.ui-dialog .ui-dialog-titlebar-restore:hover,';
         style += '.ui-dialog .ui-dialog-titlebar-restore:focus { padding: 0; }';
         style += '.ui-dialog .ui-dialog-titlebar ::selection { background-color: transparent; }';
@@ -102,8 +100,7 @@
       if (!$(".dialog-extend-collapse-css").length) {
         style = '';
         style += '<style class="dialog-extend-collapse-css" type="text/css">';
-        style += '.ui-dialog .ui-dialog-titlebar-collapse { width: 19px; height: 18px; }';
-        style += '.ui-dialog .ui-dialog-titlebar-collapse span { display: block; margin: 1px; }';
+        style += '.ui-dialog .ui-dialog-titlebar-collapse { width: 19px; margin: 1px; display:inline-block; }';
         style += '.ui-dialog .ui-dialog-titlebar-collapse:hover,';
         style += '.ui-dialog .ui-dialog-titlebar-collapse:focus { padding: 0; }';
         style += '</style>';
@@ -112,8 +109,7 @@
       if (!$(".dialog-extend-maximize-css").length) {
         style = '';
         style += '<style class="dialog-extend-maximize-css" type="text/css">';
-        style += '.ui-dialog .ui-dialog-titlebar-maximize { width: 19px; height: 18px; }';
-        style += '.ui-dialog .ui-dialog-titlebar-maximize span { display: block; margin: 1px; }';
+        style += '.ui-dialog .ui-dialog-titlebar-maximize { width: 19px; margin: 1px; display:inline-block; }';
         style += '.ui-dialog .ui-dialog-titlebar-maximize:hover,';
         style += '.ui-dialog .ui-dialog-titlebar-maximize:focus { padding: 0; }';
         style += '</style>';
@@ -122,8 +118,7 @@
       if (!$(".dialog-extend-minimize-css").length) {
         style = '';
         style += '<style class="dialog-extend-minimize-css" type="text/css">';
-        style += '.ui-dialog .ui-dialog-titlebar-minimize { width: 19px; height: 18px; }';
-        style += '.ui-dialog .ui-dialog-titlebar-minimize span { display: block; margin: 1px; }';
+        style += '.ui-dialog .ui-dialog-titlebar-minimize { width: 19px; margin: 1px; display:inline-block; }';
         style += '.ui-dialog .ui-dialog-titlebar-minimize:hover,';
         style += '.ui-dialog .ui-dialog-titlebar-minimize:focus { padding: 0; }';
         style += '</style>';
@@ -145,14 +140,10 @@
         "height": "18px"
       });
       $closeButton.css({
-        "position": "relative",
-        "float": "right",
-        "top": "auto",
-        "right": "auto",
-        "margin": 0
+        position: 'relative',
+        margin: '1px'
       });
       $closeButton.find(".ui-icon").removeClass("ui-icon-closethick").addClass(this.options.icons.close);
-      $closeButton.appendTo(buttonPane);
 
       var $customButtons = [];
       var $restoreButton = $('<a class="ui-dialog-titlebar-restore ui-corner-all ui-state-default" href="#"><span class="ui-icon ' + this.options.icons.restore + '" title="restore">restore</span></a>');
@@ -187,6 +178,7 @@
         });
         buttonPane.append($b);
       }
+      $closeButton.appendTo(buttonPane);
       $closeButton.toggle(this.options.closable);
     },
     _initModuleButton: function(name, mode) {
