@@ -171,6 +171,11 @@
       $customButtons.push($restoreButton);
       for (var i = 0; i < $customButtons.length; ++i) {
         var $b = $customButtons[i];
+        $b.addClass('ui-button');
+        if ($closeButton.hasClass('ui-button-icon-only')) {
+          $b.addClass('ui-button-icon-only');
+          $('.ui-icon', $b).text(''); // hide text even without jquery ui base css (Mapbender <= 3.0.8.5...)
+        }
         $b.attr("role", "button").mouseover(function() {
           return $(this).addClass("ui-state-hover");
         }).mouseout(function() {
