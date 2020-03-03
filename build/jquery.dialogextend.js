@@ -152,6 +152,7 @@
       });
       $closeButton.find(".ui-icon").removeClass("ui-icon-closethick").addClass(this.options.icons.close);
       $closeButton.appendTo(buttonPane);
+
       buttonPane.append('<a class="ui-dialog-titlebar-restore ui-corner-all ui-state-default" href="#"><span class="ui-icon ' + this.options.icons.restore + '" title="restore">restore</span></a>').find('.ui-dialog-titlebar-restore').attr("role", "button").mouseover(function() {
         return $(this).addClass("ui-state-hover");
       }).mouseout(function() {
@@ -169,17 +170,6 @@
         mode = _ref[name];
         this._initModuleButton(name, mode);
       }
-      return titlebar.dblclick(function(evt) {
-        if (_this.options.dblclick) {
-          if (_this._state !== "normal") {
-            return _this.restore();
-          } else {
-            return _this[_this.options.dblclick]();
-          }
-        }
-      }).select(function() {
-        return false;
-      });
     },
     _initModuleButton: function(name, mode) {
       var buttonPane,
@@ -201,6 +191,19 @@
     },
     _initTitleBar: function() {
       var handle;
+      var _this = this;
+
+      $('.ui-dialog-titlebar', this.element).dblclick(function(evt) {
+        if (_this.options.dblclick) {
+          if (_this._state !== "normal") {
+            return _this.restore();
+          } else {
+            return _this[_this.options.dblclick]();
+          }
+        }
+      }).select(function() {
+        return false;
+      });
 
       switch (this.options.titlebar) {
         case false:
