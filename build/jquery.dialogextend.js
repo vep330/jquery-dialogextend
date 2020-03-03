@@ -5,17 +5,48 @@
 
   $.widget("ui.dialogExtend", {
     version: "2.0.0",
-    modes: {},
+    modes: {
+      "collapse": {
+        option: "collapsable",
+        state: "collapsed"
+      },
+      "minimize": {
+        option: "minimizable",
+        state: "minimized"
+      },
+      "maximize": {
+        option: "maximizable",
+        state: "maximized"
+      }
+
+    },
     options: {
       "closable": true,
+      "maximizable": false,
+      "minimizable": false,
+      "collapsable": false,
+
       "dblclick": false,
       "titlebar": false,
       "icons": {
         "close": "ui-icon-closethick",
         "restore": "ui-icon-newwin"
       },
-      "load": null,
+      "icons": {
+        "maximize": "ui-icon-extlink",
+        "minimize": "ui-icon-minus",
+        "collapse": "ui-icon-triangle-1-s"
+      },
+      "minimizeLocation": "left",
+      "beforeMaximize": null,
+      "beforeMinimize": null,
       "beforeRestore": null,
+      "beforeCollapse": null,
+
+      "load": null,
+      "maximize": null,
+      "minimize": null,
+      "collapse": null,
       "restore": null
     },
     _create: function() {
@@ -249,30 +280,6 @@
         }
       }
       return _results;
-    }
-  });
-
-}).call(this);
-
-(function() {
-  var $;
-
-  $ = jQuery;
-
-  $.extend(true, $.ui.dialogExtend.prototype, {
-    modes: {
-      "collapse": {
-        option: "collapsable",
-        state: "collapsed"
-      }
-    },
-    options: {
-      "collapsable": false,
-      "icons": {
-        "collapse": "ui-icon-triangle-1-s"
-      },
-      "beforeCollapse": null,
-      "collapse": null
     },
     collapse: function() {
       var newHeight, pos;
@@ -320,30 +327,6 @@
     },
     _collapse_restore: function() {
       return $(this).dialogExtend("restore");
-    }
-  });
-
-}).call(this);
-
-(function() {
-  var $;
-
-  $ = jQuery;
-
-  $.extend(true, $.ui.dialogExtend.prototype, {
-    modes: {
-      "maximize": {
-        option: "maximizable",
-        state: "maximized"
-      }
-    },
-    options: {
-      "maximizable": false,
-      "icons": {
-        "maximize": "ui-icon-extlink"
-      },
-      "beforeMaximize": null,
-      "maximize": null
     },
     maximize: function() {
       var newHeight, newWidth;
@@ -406,31 +389,6 @@
         style += '</style>';
         return $(style).appendTo("body");
       }
-    }
-  });
-
-}).call(this);
-
-(function() {
-  var $;
-
-  $ = jQuery;
-
-  $.extend(true, $.ui.dialogExtend.prototype, {
-    modes: {
-      "minimize": {
-        option: "minimizable",
-        state: "minimized"
-      }
-    },
-    options: {
-      "minimizable": false,
-      "minimizeLocation": "left",
-      "icons": {
-        "minimize": "ui-icon-minus"
-      },
-      "beforeMinimize": null,
-      "minimize": null
     },
     minimize: function() {
       var dialogcontrols, fixedContainer, newWidth;
@@ -506,4 +464,4 @@
     }
   });
 
-}).call(this);
+})();
