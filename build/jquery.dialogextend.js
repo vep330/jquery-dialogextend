@@ -277,28 +277,12 @@
       };
     },
     _toggleButtons: function(newstate) {
-      var mode, name, state, _ref, _ref1, _results;
-
-      state = newstate || this._state;
-      $(this.element[0]).dialog("widget").find(".ui-dialog-titlebar-restore").toggle(state !== "normal").css({
-        "right": "1.4em"
-      }).end();
-      _ref = this.modes;
-      for (name in _ref) {
-        mode = _ref[name];
-        $(this.element[0]).dialog("widget").find(".ui-dialog-titlebar-" + name).toggle(state !== mode.state && this.options[mode.option]);
-      }
-      _ref1 = this.modes;
-      _results = [];
-      for (name in _ref1) {
-        mode = _ref1[name];
-        if (mode.state === state) {
-          _results.push($(this.element[0]).dialog("widget").find(".ui-dialog-titlebar-restore").insertAfter($(this.element[0]).dialog("widget").find(".ui-dialog-titlebar-" + name)).end());
-        } else {
-          _results.push(void 0);
-        }
-      }
-      return _results;
+      var state = newstate || this._state;
+      var $titleBar = $('.ui-dialog-titlebar', this.element[0]);
+      $('.ui-dialog-titlebar-collapse', $titleBar[0]).toggle(state !== 'collapsed' && this.options.collapsable);
+      $('.ui-dialog-titlebar-minimize', $titleBar[0]).toggle(state !== 'minimized' && this.options.minimizable);
+      $('.ui-dialog-titlebar-maximize', $titleBar[0]).toggle(state !== 'maximized' && this.options.maximizable);
+      $('.ui-dialog-titlebar-restore', $titleBar[0]).toggle(state !== 'normal');
     },
     collapse: function() {
       var newHeight, pos;
