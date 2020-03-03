@@ -55,6 +55,7 @@
       this._verifyOptions();
       this._initStyles();
       this._initButtons();
+      this._toggleButtons();
       this._initTitleBar();
       this._setState("normal");
       this._on("load", function(e) {
@@ -155,10 +156,10 @@
 
       var $customButtons = [];
       var $restoreButton = $('<a class="ui-dialog-titlebar-restore ui-corner-all ui-state-default" href="#"><span class="ui-icon ' + this.options.icons.restore + '" title="restore">restore</span></a>');
-      $restoreButton.hide().click(function(e) {
+      $restoreButton.click(function(e) {
         e.preventDefault();
         return _this.restore();
-      }).end();
+      });
       if (this.options.minimizeLocation === 'left') {
         $customButtons.push(this._initModuleButton('minimize', this.modes['minimize']));
         $customButtons.push(this._initModuleButton('maximize', this.modes['maximize']));
@@ -187,7 +188,7 @@
       var _this = this;
 
       var $button = $('<a class="ui-dialog-titlebar-' + name + ' ui-corner-all ui-state-default" href="#" title="' + name + '"><span class="ui-icon ' + this.options.icons[name] + '">' + name + '</span></a>');
-      $button.toggle(this.options[mode.option]).click(function(e) {
+      $button.click(function(e) {
         e.preventDefault();
         return _this[name]();
       });
