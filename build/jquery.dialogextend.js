@@ -27,7 +27,6 @@
       "collapsable": false,
 
       "dblclick": false,
-      "titlebar": false,
       "icons": {
         "close": "ui-icon-closethick",
         "restore": "ui-icon-newwin",
@@ -74,15 +73,10 @@
         $.error("jQuery.dialogExtend Error : Invalid <dblclick> value '" + this.options.dblclick + "'");
         this.options.dblclick = false;
       }
-      if (this.options.titlebar && ((_ref = this.options.titlebar) !== "none" && _ref !== "transparent")) {
-        $.error("jQuery.dialogExtend Error : Invalid <titlebar> value '" + this.options.titlebar + "'");
-        this.options.titlebar = false;
-      }
       if (!this.options.minimizeLocation || ((_ref = this.options.minimizeLocation) !== 'left' && _ref !== 'right')) {
         $.error("jQuery.dialogExtend Error : Invalid <minimizeLocation> value '" + this.options.minimizeLocation + "'");
         this.options.minimizeLocation = "left";
       }
-      return [];
     },
     _initStyles: function() {
       var style;
@@ -186,7 +180,6 @@
       return $button;
     },
     _initTitleBar: function() {
-      var handle;
       var _this = this;
 
       $('.ui-dialog-titlebar', this.element).dblclick(function(evt) {
@@ -200,33 +193,6 @@
       }).select(function() {
         return false;
       });
-
-      switch (this.options.titlebar) {
-        case false:
-          return 0;
-        case "none":
-          if ($(this.element[0]).dialog("option", "draggable")) {
-            handle = $("<div />").addClass("ui-dialog-draggable-handle").css("cursor", "move").height(5);
-            $(this.element[0]).dialog("widget").prepend(handle).draggable("option", "handle", handle);
-          }
-          return $(this.element[0]).dialog("widget").find(".ui-dialog-titlebar").find(".ui-dialog-title").html("&nbsp;").end().css({
-            "background-color": "transparent",
-            "background-image": "none",
-            "border": 0,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-            "z-index": 9999
-          }).end();
-        case "transparent":
-          return $(this.element[0]).dialog("widget").find(".ui-dialog-titlebar").css({
-            "background-color": "transparent",
-            "background-image": "none",
-            "border": 0
-          });
-        default:
-          return $.error("jQuery.dialogExtend Error : Invalid <titlebar> value '" + this.options.titlebar + "'");
-      }
     },
     state: function() {
       return this._state;
