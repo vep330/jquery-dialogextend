@@ -85,8 +85,6 @@
         style = '';
         style += '<style class="dialog-extend-css" type="text/css">';
         style += '.ui-dialog .ui-dialog-titlebar-restore { width: 19px; margin: 1px; display:inline-block; }';
-        style += '.ui-dialog .ui-dialog-titlebar-restore:hover,';
-        style += '.ui-dialog .ui-dialog-titlebar-restore:focus { padding: 0; }';
         style += '.ui-dialog .ui-dialog-titlebar ::selection { background-color: transparent; }';
         style += '</style>';
         $(style).appendTo("body");
@@ -95,8 +93,6 @@
         style = '';
         style += '<style class="dialog-extend-collapse-css" type="text/css">';
         style += '.ui-dialog .ui-dialog-titlebar-collapse { width: 19px; margin: 1px; display:inline-block; }';
-        style += '.ui-dialog .ui-dialog-titlebar-collapse:hover,';
-        style += '.ui-dialog .ui-dialog-titlebar-collapse:focus { padding: 0; }';
         style += '</style>';
         $(style).appendTo("body");
       }
@@ -104,8 +100,6 @@
         style = '';
         style += '<style class="dialog-extend-maximize-css" type="text/css">';
         style += '.ui-dialog .ui-dialog-titlebar-maximize { width: 19px; margin: 1px; display:inline-block; }';
-        style += '.ui-dialog .ui-dialog-titlebar-maximize:hover,';
-        style += '.ui-dialog .ui-dialog-titlebar-maximize:focus { padding: 0; }';
         style += '</style>';
         $(style).appendTo("body");
       }
@@ -113,8 +107,6 @@
         style = '';
         style += '<style class="dialog-extend-minimize-css" type="text/css">';
         style += '.ui-dialog .ui-dialog-titlebar-minimize { width: 19px; margin: 1px; display:inline-block; }';
-        style += '.ui-dialog .ui-dialog-titlebar-minimize:hover,';
-        style += '.ui-dialog .ui-dialog-titlebar-minimize:focus { padding: 0; }';
         style += '</style>';
         $(style).appendTo("body");
       }
