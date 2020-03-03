@@ -126,8 +126,7 @@
       }
     },
     _initButtons: function() {
-      var buttonPane, titlebar,
-        _this = this;
+      var buttonPane, titlebar;
 
       titlebar = $(this.element[0]).dialog("widget").find(".ui-dialog-titlebar");
       var $closeButton = titlebar.find('.ui-dialog-titlebar-close');
@@ -145,23 +144,18 @@
       });
       $closeButton.find(".ui-icon").removeClass("ui-icon-closethick").addClass(this.options.icons.close);
 
-      var $customButtons = [];
-      var $restoreButton = $('<a class="ui-dialog-titlebar-restore ui-corner-all ui-state-default" href="#"><span class="ui-icon ' + this.options.icons.restore + '" title="restore">restore</span></a>');
-      $restoreButton.click(function(e) {
-        e.preventDefault();
-        return _this.restore();
-      });
+      var customButtonNames = [];
       if (this.options.minimizeLocation === 'left') {
-        $customButtons.push(this._initModuleButton('minimize', this.modes['minimize']));
-        $customButtons.push(this._initModuleButton('maximize', this.modes['maximize']));
+        customButtonNames.push('minimize');
+        customButtonNames.push('maximize');
       } else {
-        $customButtons.push(this._initModuleButton('maximize', this.modes['maximize']));
-        $customButtons.push(this._initModuleButton('minimize', this.modes['minimize']));
+        customButtonNames.push('maximize');
+        customButtonNames.push('minimize');
       }
-      $customButtons.push(this._initModuleButton('collapse', this.modes['collapse']));
-      $customButtons.push($restoreButton);
-      for (var i = 0; i < $customButtons.length; ++i) {
-        var $b = $customButtons[i];
+      customButtonNames.push('collapse');
+      customButtonNames.push('restore');
+      for (var i = 0; i < customButtonNames.length; ++i) {
+        var $b = this._initModuleButton(customButtonNames[i]);
         $b.addClass('ui-button');
         if ($closeButton.hasClass('ui-button-icon-only')) {
           $b.addClass('ui-button-icon-only');
@@ -181,7 +175,7 @@
       $closeButton.appendTo(buttonPane);
       $closeButton.toggle(this.options.closable);
     },
-    _initModuleButton: function(name, mode) {
+    _initModuleButton: function(name) {
       var _this = this;
 
       var $button = $('<a class="ui-dialog-titlebar-' + name + ' ui-corner-all ui-state-default" href="#" title="' + name + '"><span class="ui-icon ' + this.options.icons[name] + '">' + name + '</span></a>');
