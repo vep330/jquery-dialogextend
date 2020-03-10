@@ -123,26 +123,8 @@
         style = '';
         style += '<style class="dialog-extend-css" type="text/css">';
         style += '.ui-dialog .ui-dialog-titlebar-restore { width: 19px; margin: 1px; display:inline-block; }';
-        style += '</style>';
-        $(style).appendTo("body");
-      }
-      if (!$(".dialog-extend-collapse-css").length) {
-        style = '';
-        style += '<style class="dialog-extend-collapse-css" type="text/css">';
         style += '.ui-dialog .ui-dialog-titlebar-collapse { width: 19px; margin: 1px; display:inline-block; }';
-        style += '</style>';
-        $(style).appendTo("body");
-      }
-      if (!$(".dialog-extend-maximize-css").length) {
-        style = '';
-        style += '<style class="dialog-extend-maximize-css" type="text/css">';
         style += '.ui-dialog .ui-dialog-titlebar-maximize { width: 19px; margin: 1px; display:inline-block; }';
-        style += '</style>';
-        $(style).appendTo("body");
-      }
-      if (!$(".dialog-extend-minimize-css").length) {
-        style = '';
-        style += '<style class="dialog-extend-minimize-css" type="text/css">';
         style += '.ui-dialog .ui-dialog-titlebar-minimize { width: 19px; margin: 1px; display:inline-block; }';
         style += '</style>';
         $(style).appendTo("body");
