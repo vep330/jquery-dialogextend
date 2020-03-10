@@ -1,3 +1,9 @@
+## 2.1.204
+* Coffeescript is dead
+* Reduce conflicts with jqueryui CSS
+* Reduce requirements for extra custom CSS
+* Improve default visuals with missing jqueryui CSS
+
 2.0.4 /2014-07-08
 ===
 
