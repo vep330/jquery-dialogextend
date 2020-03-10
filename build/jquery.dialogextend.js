@@ -5,21 +5,6 @@
 
   $.widget("ui.dialogExtend", {
     version: "2.0.0",
-    modes: {
-      "collapse": {
-        option: "collapsable",
-        state: "collapsed"
-      },
-      "minimize": {
-        option: "minimizable",
-        state: "minimized"
-      },
-      "maximize": {
-        option: "maximizable",
-        state: "maximized"
-      }
-
-    },
     options: {
       "closable": true,
       "maximizable": false,
@@ -106,8 +91,8 @@
     },
     _verifyOptions: function() {
       var _ref;
-
-      if (this.options.dblclick && !(this.options.dblclick in this.modes)) {
+      var validModes = ["collapse", "minimize", "maximize"];
+      if (this.options.dblclick && validModes.indexOf(this.options.dblclick) === -1) {
         $.error("jQuery.dialogExtend Error : Invalid <dblclick> value '" + this.options.dblclick + "'");
         this.options.dblclick = false;
       }
