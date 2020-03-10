@@ -44,7 +44,7 @@
       this._setState("normal");
       var self = this;
 
-      this.element.on('popupdialogopen', function(e) {
+      this.element.on('popupdialogopen', function() {
         var $dialog =  self._getDialogElement();
         var $buttonPane = $('.ui-dialog-titlebar-buttonpane', $dialog);
         if ($buttonPane.length && ($buttonPane.css('float') !== 'none' || $buttonPane.css('position') !== 'absolute')) {
@@ -165,7 +165,7 @@
     },
     _initTitleBar: function() {
       var _this = this;
-      $('.ui-dialog-titlebar', this._getDialogElement()).dblclick(function(evt) {
+      $('.ui-dialog-titlebar', this._getDialogElement()).dblclick(function() {
         if (_this.options.dblclick) {
           if (_this._state !== "normal") {
             return _this.restore();
@@ -196,15 +196,18 @@
     _saveSnapshot: function() {
       if (this._state === "normal") {
         var uiDialog = this._getDialogElement();
+        var $body = $('body');
+        var dialogOffset;
         this.original_config_resizable = $(this.element[0]).dialog("option", "resizable");
         this.original_config_draggable = $(this.element[0]).dialog("option", "draggable");
         this.original_size_height = uiDialog.outerHeight();
         this.original_size_width = $(this.element[0]).dialog("option", "width");
         this.original_size_maxHeight = $(this.element[0]).dialog("option", "maxHeight");
         this.original_position_mode = uiDialog.css("position");
-        this.original_position_left = uiDialog.offset().left - $('body').scrollLeft();
-        this.original_position_top = uiDialog.offset().top - $('body').scrollTop();
-        return this.original_titlebar_wrap = uiDialog.find(".ui-dialog-titlebar").css("white-space");
+        dialogOffset = uiDialog.offset();
+        this.original_position_left = dialogOffset.left - $body.scrollLeft();
+        this.original_position_top = dialogOffset.top - $body.scrollTop();
+        this.original_titlebar_wrap = uiDialog.find(".ui-dialog-titlebar").css("white-space");
       }
     },
     _loadSnapshot: function() {
@@ -338,9 +341,8 @@
         this._restore();
       }
       newWidth = 200;
-      if ($("#dialog-extend-fixed-container").length) {
-        fixedContainer = $("#dialog-extend-fixed-container");
-      } else {
+      fixedContainer = $("#dialog-extend-fixed-container");
+      if (!fixedContainer.length) {
         fixedContainer = $('<div id="dialog-extend-fixed-container"></div>').appendTo("body");
         fixedContainer.css({
           "position": "fixed",
