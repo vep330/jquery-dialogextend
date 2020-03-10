@@ -90,13 +90,12 @@
       return this._state = state;
     },
     _verifyOptions: function() {
-      var _ref;
       var validModes = ["collapse", "minimize", "maximize"];
       if (this.options.dblclick && validModes.indexOf(this.options.dblclick) === -1) {
         $.error("jQuery.dialogExtend Error : Invalid <dblclick> value '" + this.options.dblclick + "'");
         this.options.dblclick = false;
       }
-      if (!this.options.minimizeLocation || ((_ref = this.options.minimizeLocation) !== 'left' && _ref !== 'right')) {
+      if (this.options.minimizeLocation !== 'left' && this.options.minimizeLocation !== 'right') {
         $.error("jQuery.dialogExtend Error : Invalid <minimizeLocation> value '" + this.options.minimizeLocation + "'");
         this.options.minimizeLocation = "left";
       }
