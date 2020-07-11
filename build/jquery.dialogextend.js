@@ -44,7 +44,14 @@
       this._setState("normal");
       var self = this;
 
-      this.element.on('popupdialogopen', function() {
+      // Vis-ui special: popupdialog modifies the original event name space of the dialog. Support both.
+      this.element.on('dialogclose popupdialogclose', function() {
+        // On next call to .open, come back in default state
+        self._restore();
+      });
+
+      // Vis-ui special: popupdialog modifies the original event name space of the dialog. Support both.
+      this.element.on('dialogopen popupdialogopen', function() {
         var $dialog =  self._getDialogElement();
         var $buttonPane = $('.ui-dialog-titlebar-buttonpane', $dialog);
         if ($buttonPane.length && ($buttonPane.css('float') !== 'none' || $buttonPane.css('position') !== 'absolute')) {
