@@ -5,12 +5,10 @@ Compatible
 
 Overview
 ===
-- Neat, simple, and ABSOLUTELY unobtrusive
 - Extending (instead of replacing) original jQuery UI dialog
 - Maximize and minimize buttons
 - Show/Hide close button
 - Double-clickable title bar
-- Enhanced title bar options
 - Configurable icons
 - Custom events
 
@@ -81,15 +79,6 @@ Usage: set action on double click
 Default: *false*
 
 Valid: *false*, *'maximize'*, *'minimize'*, *'collapse'*
-
-
-#### titlebar ####
-
-Type: *Boolean*, *String*
-
-Default: *false*
-
-Valid: *false*, *'none'*, *'transparent'*
 
 
 #### icons ####
@@ -300,7 +289,7 @@ Theming
 ===
 The dialog will have class according to its current state.
 
-	<div class="ui-dialog">
+	<div class="ui-dialog jqdx-state-{normal|maximized|minimized|collapsed}">
 	  <div class="ui-dialog-titlebar">...</div>
 	  <div class="ui-dialog-content ui-dialog-{normal|maximized|minimized|collapsed}">...</div>
 	</div>
@@ -311,10 +300,10 @@ The buttons are wrapped by title bar of jQuery UI Dialog.
 	<div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
 	  ...
 	  <div class="ui-dialog-titlebar-buttonpane">
-	    <a class="ui-dialog-titlebar-close ui-corner-all" href="#">...</a>
 	    <a class="ui-dialog-titlebar-maximize ui-corner-all" href="#"><span class="ui-icon {icons.maximize}">maximize</span></a>
 	    <a class="ui-dialog-titlebar-minimize ui-corner-all" href="#"><span class="ui-icon {icons.minimize}">minimize</span></a>
 	    <a class="ui-dialog-titlebar-restore ui-corner-all" href="#"><span class="ui-icon {icons.restore}">restore</span></a>
+	    <button type="button" class="ui-dialog-titlebar-close ui-corner-all" href="#">...</button>
 	  </div>
 	  ...
 	</div>
@@ -347,7 +336,6 @@ Example - Full Config
 	        "minimizable" : true,
 	        "collapsable" : true,
 	        "dblclick" : "collapse",
-	        "titlebar" : "transparent",
 	        "minimizeLocation" : "right",
 	        "icons" : {
 	          "close" : "ui-icon-circle-close",
