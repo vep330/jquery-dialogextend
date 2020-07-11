@@ -87,6 +87,7 @@
     },
     _setState: function(state) {
       $(this.element[0]).removeClass("ui-dialog-" + this._state).addClass("ui-dialog-" + state);
+      this._getDialogElement().removeClass('jqdx-state-' + this._state).addClass("jqdx-state-" + state);
       return this._state = state;
     },
     _verifyOptions: function() {
@@ -110,6 +111,9 @@
         style += '.ui-dialog .ui-dialog-titlebar-collapse { width: 19px; margin: 1px; display:inline-block; }';
         style += '.ui-dialog .ui-dialog-titlebar-maximize { width: 19px; margin: 1px; display:inline-block; }';
         style += '.ui-dialog .ui-dialog-titlebar-minimize { width: 19px; margin: 1px; display:inline-block; }';
+        // defeat direct element style with !important
+        style += '.ui-dialog.jqdx-state-collapsed >*:not(.ui-dialog-titlebar) { display: none !important; }';
+        style += '.ui-dialog.jqdx-state-collapsed >.ui-dialog-titlebar { white-space: nowrap; }'; // ...why?
         style += '#dialog-extend-fixed-container { position: fixed; bottom: 1; left: 1; right: 1; z-index: 9999; }';
         style += '</style>';
         $(style).appendTo("body");
@@ -241,44 +245,14 @@
       $('.ui-dialog-titlebar-restore', $titleBar[0]).toggle(state !== 'normal');
     },
     collapse: function() {
-      var newHeight, pos;
-      var uiDialog = this._getDialogElement();
-
-      newHeight = uiDialog.find(".ui-dialog-titlebar").height() + 15;
       this._trigger("beforeCollapse");
-      if (this._state !== "normal") {
-        this._restore();
-      }
-      this._saveSnapshot();
-      pos = uiDialog.position();
-      $(this.element[0]).dialog("option", {
-        "resizable": false,
-        "height": newHeight,
-        "maxHeight": newHeight,
-        "position": [pos.left - $(document).scrollLeft(), pos.top - $(document).scrollTop()]
-      }).on('dialogclose', this._collapse_restore).hide();
-      uiDialog.find(".ui-dialog-buttonpane:visible").hide();
-      uiDialog.find(".ui-dialog-titlebar").css("white-space", "nowrap");
+      this._restore();
       this._setState("collapsed");
       this._toggleButtons();
       return this._trigger("collapse");
     },
     _restore_collapsed: function() {
-      var original;
-
-      original = this._loadSnapshot();
-      var uiDialog = this._getDialogElement();
-      this.element.show();
-      uiDialog.find(".ui-dialog-buttonpane:hidden").show();
-      uiDialog.find(".ui-dialog-titlebar").css("white-space", original.titlebar.wrap);
-      return this.element.first().dialog("option", {
-        "resizable": original.config.resizable,
-        "height": original.size.height,
-        "maxHeight": original.size.maxHeight
-      }).off('dialogclose', this._collapse_restore);
-    },
-    _collapse_restore: function() {
-      return $(this).dialogExtend("restore");
+      // nothing to do
     },
     maximize: function() {
       var newHeight, newWidth;
