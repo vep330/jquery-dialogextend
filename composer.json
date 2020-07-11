@@ -13,7 +13,6 @@
       "robloach/component-installer": "0.x"
     },
     "config": {
-        "bin-dir": "bin",
         "component-dir": "web/assets"
     }
 }
