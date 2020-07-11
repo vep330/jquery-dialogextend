@@ -1,11 +1,3 @@
-jquery-dialogextend 2.0.4 [![project status](http://stillmaintained.com/ROMB/jquery-dialogextend.png)](http://stillmaintained.com/ROMB/jquery-dialogextend) [![Build Status](https://travis-ci.org/ROMB/jquery-dialogextend.png?branch=master)](https://travis-ci.org/ROMB/jquery-dialogextend)
-===
-Download
-===
-[development build](https://raw.github.com/ROMB/jquery-dialogextend/master/build/jquery.dialogextend.js)
-
-[minified library](https://raw.github.com/ROMB/jquery-dialogextend/master/build/jquery.dialogextend.min.js)
-
 Compatible
 ===
 - jQuery 1.11.1
