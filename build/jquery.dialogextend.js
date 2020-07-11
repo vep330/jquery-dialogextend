@@ -119,7 +119,7 @@
           // defeat direct element style with !important
           '.ui-dialog.jqdx-state-collapsed >*:not(.ui-dialog-titlebar) { display: none !important; }',
           '.ui-dialog.jqdx-state-collapsed { height: auto !important; }',
-          '.ui-dialog.jqdx-state-collapsed >.ui-dialog-titlebar { white-space: nowrap; }', // ...why?
+          '.ui-dialog.jqdx-state-collapsed >.ui-dialog-titlebar { white-space: nowrap; }', // for loooong titles
           //// maximized
           // reposition to fill viewport, overruling draggable + resizable element styles
           '.ui-dialog.jqdx-state-maximized { position: fixed !important; left: 0 !important; top: 0 !important; width: auto !important; height: 100% !important; right: 0; }',
