@@ -1,3 +1,6 @@
+jQueryUI dialog addon that adds collapse / minimize / maximize interactions.
+Forked from [ROMB/jquery-dialogextend](https://github.com/ROMB/jquery-dialogextend). See [original license](https://github.com/ROMB/jquery-dialogextend/blob/2.0.4/LICENSE.md).
+
 Compatible
 ===
 - jQuery 1.11.1
