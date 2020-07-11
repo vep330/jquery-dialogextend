@@ -183,7 +183,14 @@
     _initModuleButton: function(name) {
       var _this = this;
 
-      var $button = $('<a class="ui-dialog-titlebar-' + name + ' ui-corner-all ui-state-default" href="#" title="' + name + '"><span class="ui-icon ' + this.options.icons[name] + '">' + name + '</span></a>');
+      var $button = $('<a href="#">');
+      $button.attr({
+        title: [name.toUpperCase().slice(0, 1), name.slice(1)].join(''),
+        'class': 'ui-dialog-titlebar-' + name + ' ui-corner-all ui-state-default'
+      });
+      $button.append($('<span>').text(name).attr({
+        'class': 'ui-icon ' + this.options.icons[name]
+      }));
       $button.click(function(e) {
         e.preventDefault();
         return _this[name]();
