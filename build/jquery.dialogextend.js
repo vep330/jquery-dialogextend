@@ -110,6 +110,7 @@
         style += '.ui-dialog .ui-dialog-titlebar-collapse { width: 19px; margin: 1px; display:inline-block; }';
         style += '.ui-dialog .ui-dialog-titlebar-maximize { width: 19px; margin: 1px; display:inline-block; }';
         style += '.ui-dialog .ui-dialog-titlebar-minimize { width: 19px; margin: 1px; display:inline-block; }';
+        style += '#dialog-extend-fixed-container { position: fixed; bottom: 1; left: 1; right: 1; z-index: 9999; }';
         style += '</style>';
         $(style).appendTo("body");
       }
@@ -344,13 +345,6 @@
       fixedContainer = $("#dialog-extend-fixed-container");
       if (!fixedContainer.length) {
         fixedContainer = $('<div id="dialog-extend-fixed-container"></div>').appendTo("body");
-        fixedContainer.css({
-          "position": "fixed",
-          "bottom": 1,
-          "left": 1,
-          "right": 1,
-          "z-index": 9999
-        });
       }
       this._toggleButtons("minimized");
       dialogcontrols = uiDialog.clone().children().remove();
