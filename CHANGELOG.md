@@ -1,3 +1,11 @@
+## 2.2
+* Fix minimize interaction
+* Fix event handling to support regular jQueryUI dialog, not just custom vis-ui.js popupDialog
+* Fix display state restoration to default on open after close
+* Fix constant pixel width assumption on minimized dialogs; size appropriately to fit content
+* Reduce conflicts with externally controlled element style on (portions of) dialog
+* Capitalize custom button tooltips
+
 ## 2.1.204
 * Coffeescript is dead
 * Reduce conflicts with jqueryui CSS
