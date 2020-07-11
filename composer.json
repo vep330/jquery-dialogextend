@@ -2,7 +2,7 @@
     "name": "wheregroup/jquerydialogextendjs",
     "type": "component",
     "description": "Maximize and Minimize Buttons for UI Dialog",
-    "homepage": "https://github.com/ROMB/jquery-dialogextend",
+    "homepage": "https://github.com/wheregroup/jquery-dialogextend",
     "license": "MIT",
     "extra": {
         "component": {
