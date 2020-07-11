@@ -213,44 +213,6 @@
         this._getDialogElement().focus();
       }
     },
-    _saveSnapshot: function() {
-      if (this._state === "normal") {
-        var uiDialog = this._getDialogElement();
-        var $body = $('body');
-        var dialogOffset;
-        this.original_config_resizable = $(this.element[0]).dialog("option", "resizable");
-        this.original_config_draggable = $(this.element[0]).dialog("option", "draggable");
-        this.original_size_height = uiDialog.outerHeight();
-        this.original_size_width = $(this.element[0]).dialog("option", "width");
-        this.original_size_maxHeight = $(this.element[0]).dialog("option", "maxHeight");
-        this.original_position_mode = uiDialog.css("position");
-        dialogOffset = uiDialog.offset();
-        this.original_position_left = dialogOffset.left - $body.scrollLeft();
-        this.original_position_top = dialogOffset.top - $body.scrollTop();
-        this.original_titlebar_wrap = uiDialog.find(".ui-dialog-titlebar").css("white-space");
-      }
-    },
-    _loadSnapshot: function() {
-      return {
-        "config": {
-          "resizable": this.original_config_resizable,
-          "draggable": this.original_config_draggable
-        },
-        "size": {
-          "height": this.original_size_height,
-          "width": this.original_size_width,
-          "maxHeight": this.original_size_maxHeight
-        },
-        "position": {
-          "mode": this.original_position_mode,
-          "left": this.original_position_left,
-          "top": this.original_position_top
-        },
-        "titlebar": {
-          "wrap": this.original_titlebar_wrap
-        }
-      };
-    },
     _toggleButtons: function(newstate) {
       var state = newstate || this._state;
       var $titleBar = $('.ui-dialog-titlebar', this.element[0]);
