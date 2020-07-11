@@ -88,7 +88,7 @@
     _setState: function(state) {
       $(this.element[0]).removeClass("ui-dialog-" + this._state).addClass("ui-dialog-" + state);
       this._getDialogElement().removeClass('jqdx-state-' + this._state).addClass("jqdx-state-" + state);
-      return this._state = state;
+      this._state = state;
     },
     _verifyOptions: function() {
       var validModes = ["collapse", "minimize", "maximize"];
@@ -210,7 +210,7 @@
       if (this._state !== "normal") {
         this["_restore_" + this._state]();
         this._setState("normal");
-        return this._getDialogElement().focus();
+        this._getDialogElement().focus();
       }
     },
     _saveSnapshot: function() {
